@@ -15,7 +15,14 @@ int main(){
     struct Node* current = (struct Node*)malloc(sizeof(struct Node));
     current->data = 98;
     current->link = NULL;
-
     head->link = current;
+
+    struct Node* current2 = (struct Node*)malloc(sizeof(struct Node));
+    current2->data = 3;
+    current2->link = NULL;
+    current->link = current2;
+
     printf("First node data: %d\n",head->data);
+    printf("Second node data: %d\n",current->data);
+    printf("Third node data: %d\n",current2->data);
 }
