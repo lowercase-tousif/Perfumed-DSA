@@ -6,6 +6,22 @@ struct Node{
     struct Node* link;
 };
 
+void count_of_nodes(struct Node* head){
+    int count = 0;
+    if(head == NULL){
+        printf("Linked List is empty\n");
+    }
+
+    // create a new pointer for traversing the ll
+    struct Node* ptr = NULL;
+    ptr = head; // without destroying the head created a temporary pointer
+    while(ptr != NULL){
+        count++;
+        ptr = ptr->link;
+    }
+    printf("%d\n",count);
+}
+
 int main(){
     struct Node* head = NULL;
     head = (struct Node*)malloc(sizeof(struct Node));
@@ -23,6 +39,5 @@ int main(){
 
     head->link->link = current; // keep track of the second and the 3rd node
 
-    printf("First node data: %d\n",head->data);
-    printf("Second node data: %d\n",current->data);
+    count_of_nodes(head);
 }
