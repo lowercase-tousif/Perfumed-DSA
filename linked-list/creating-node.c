@@ -17,12 +17,12 @@ int main(){
     current->link = NULL;
     head->link = current;
 
-    struct Node* current2 = (struct Node*)malloc(sizeof(struct Node));
-    current2->data = 3;
-    current2->link = NULL;
-    current->link = current2;
+    current = (struct Node*)malloc(sizeof(struct Node));
+    current->data = 3;
+    current->link = NULL;
+
+    head->link->link = current; // keep track of the second and the 3rd node
 
     printf("First node data: %d\n",head->data);
     printf("Second node data: %d\n",current->data);
-    printf("Third node data: %d\n",current2->data);
 }
