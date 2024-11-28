@@ -12,5 +12,10 @@ int main(){
     head->data = 45;
     head->link = NULL;
 
+    struct Node* current = (struct Node*)malloc(sizeof(struct Node));
+    current->data = 98;
+    current->link = NULL;
+
+    head->link = current;
     printf("First node data: %d\n",head->data);
 }
