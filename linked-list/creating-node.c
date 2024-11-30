@@ -35,6 +35,25 @@ void print_data(struct Node* head){
     }
 }
 
+void insert_end(struct Node* head, int value){
+    // create a new pointer for accessing the data of the ll and creating another temp for storing the link of ll
+    struct Node* ptr = NULL, *temp;
+    ptr = head; // without destroying the head created a temporary pointer
+
+    // creating a Node
+    temp = (struct Node*)malloc(sizeof(struct Node));
+
+    temp->data = value;
+    temp->link = NULL;
+
+    while(ptr->link != NULL){
+        ptr = ptr->link;
+    }
+
+    // now assigning the value at the end
+    ptr->link = temp;
+}
+
 int main(){
     struct Node* head = NULL;
     head = (struct Node*)malloc(sizeof(struct Node));
@@ -53,4 +72,10 @@ int main(){
     head->link->link = current; // keep track of the second and the 3rd node
     print_data(head);
     count_of_nodes(head);
+
+    // inserting element at the end
+    insert_end(head,67);
+
+    printf("\nAfter inserting at the end: \n");
+    print_data(head);
 }
