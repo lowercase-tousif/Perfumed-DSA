@@ -54,28 +54,52 @@ void insert_end(struct Node* head, int value){
     ptr->link = temp;
 }
 
+// optimal way of inserting at the end
+struct Node* add_at_end(struct Node* ptr, int data){
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = data;
+    temp->link = NULL;
+
+    ptr->link = temp;
+    return temp;
+}
+
+
 int main(){
     struct Node* head = NULL;
     head = (struct Node*)malloc(sizeof(struct Node));
     head->data = 45;
     head->link = NULL;
 
-    struct Node* current = (struct Node*)malloc(sizeof(struct Node));
-    current->data = 98;
-    current->link = NULL;
-    head->link = current;
+    // struct Node* current = (struct Node*)malloc(sizeof(struct Node));
+    // current->data = 98;
+    // current->link = NULL;
+    // head->link = current;
 
-    current = (struct Node*)malloc(sizeof(struct Node));
-    current->data = 3;
-    current->link = NULL;
+    // current = (struct Node*)malloc(sizeof(struct Node));
+    // current->data = 3;
+    // current->link = NULL;
 
-    head->link->link = current; // keep track of the second and the 3rd node
-    print_data(head);
-    count_of_nodes(head);
+    // head->link->link = current; // keep track of the second and the 3rd node
+    // print_data(head);
+    // count_of_nodes(head);
 
-    // inserting element at the end
-    insert_end(head,67);
+    // // inserting element at the end
+    // insert_end(head,67);
 
-    printf("\nAfter inserting at the end: \n");
-    print_data(head);
+    // printf("\nAfter inserting at the end: \n");
+    // print_data(head);
+
+
+    // Inserting in optimal way
+    struct Node* temp = head;
+    temp = add_at_end(temp, 20);
+    temp = add_at_end(temp, 30);
+    temp = add_at_end(temp, 40);
+
+    temp = head;
+    while(temp != NULL){
+        printf("%d ", temp->data);
+        temp = temp->link;
+    }
 }
