@@ -101,8 +101,7 @@ void sort_LL(Node *head){
     }
     // end of sorting algorithm
 
-    // converting the array into linked list again
-    //TODO: write a function that converts the array into linked list
+    // Converting array to linked list
     convertArrToLL(v);
 }
 
