@@ -12,7 +12,7 @@ vector<int> v;
 // Head here globally defined
 struct Node *head;
 
-// insertt first function
+// insert first function
 void insert_first(int num) {
   struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
   temp->data = num;
@@ -32,11 +32,11 @@ void display(Node* head){
     }
 }
 
-// length 
+// length
 void lengthLL(Node* head){
     struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
     temp = head;
-    
+
     int count = 0;
 
     while(temp != nullptr){
@@ -48,7 +48,7 @@ void lengthLL(Node* head){
 }
 
 void convertArrToLL(vector<int>&v){
-    
+
    if(v.empty()){
     head = nullptr;
     return;
@@ -72,9 +72,8 @@ void convertArrToLL(vector<int>&v){
 }
 
 
-// sorting a linked list
-
-void sort_LL(Node *head){
+// sorting a linked list made by own
+Node* sort_LL(Node *head){
     struct Node* temp = (struct Node *) malloc(sizeof(struct Node));
     temp = head;
 
@@ -82,9 +81,6 @@ void sort_LL(Node *head){
         v.push_back(temp->data);
         temp = temp->next;
     }
-
-    // printing the size of the vector
-    // cout << v.size() << endl;
 
     // Sorting algorithm
     for(int i = 0; i < v.size() - 1; i++){
@@ -100,11 +96,86 @@ void sort_LL(Node *head){
         }
     }
     // end of sorting algorithm
+    temp = head;
 
-    // Converting array to linked list
-    convertArrToLL(v);
+    for(int i = 0; i < v.size(); i ++){
+        temp->data = v[i];
+        temp = temp->next;
+    }
+    return head;
+
 }
 
+// Sorting the linked list using bubble sort
+void sortLL(Node* head){
+   struct Node *i, *j;
+    int temp;
+
+    for(i = head; i != NULL; i = i->next){
+        for(j = i->next; j != NULL; j = j->next){
+            if(i->data > j->data){
+                swap(i->data, j->data);
+            }
+        }
+    }
+    display(head);
+}
+
+// Searching Function
+void searchLL(Node *head, int value){
+    int flag = 0;
+    struct Node *temp = (struct Node*)malloc(sizeof(struct Node));
+    temp = head;
+
+    while(temp != nullptr){
+        if(temp->data == value){
+            flag = 1;
+            break;
+        }
+        temp = temp->next;
+    }
+
+    if(flag){
+        cout << "Element Found." << endl;
+    }else{
+        cout << "Element Not Found." << endl;
+    }
+
+}
+
+// Update Function
+void updateLL(Node *head, int index, int value){
+    int pos = 0;
+
+    struct Node *temp = (struct Node*)malloc(sizeof(struct Node));
+    temp = head;
+
+    while(temp != nullptr){
+        if(pos == index){
+            temp->data = value;
+            cout << "Element found at " << pos << endl;
+            cout << "Updated the element" << endl;
+        }
+        temp = temp->next;
+        pos++;
+    }
+
+}
+
+// Insert last function
+void insert_last(Node *head, int num){
+    struct Node *newnode = (struct Node*)malloc(sizeof(struct Node));
+    newnode->data = num;
+    newnode->next = nullptr;
+
+    struct Node *temp = (struct Node*)malloc(sizeof(struct Node));
+    temp = head;
+
+    while(temp->next != nullptr){
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
 
 int main() {
   head = nullptr;
@@ -120,6 +191,11 @@ int main() {
       cin >> num;
       insert_first(num);
     }
+    else if(s == "il"){
+        int num;
+        cin >> num;
+        insert_last(head, num);
+    }
     else if(s == "d"){
         display(head);
     }
@@ -127,7 +203,25 @@ int main() {
         lengthLL(head);
     }
     else if(s == "s"){
-        sort_LL(head);
+        head = sort_LL(head);
+    }
+    else if(s == "ss"){
+        sortLL(head);
+    }
+    else if(s == "find"){
+        int num;
+        cout << "Enter the value you want to search:";
+        cin >> num;
+        searchLL(head, num);
+    }
+    else if(s == "update"){
+        int index, value;
+        cout << "Enter the index you wanna change: ";
+        cin >> index;
+        cout << "Enter the value: ";
+        cin >> value;
+
+        updateLL(head, index, value);
     }
     else if (s == "e") {
       exit(0);
