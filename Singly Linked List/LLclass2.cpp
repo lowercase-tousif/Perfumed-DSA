@@ -1,76 +1,137 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-struct Node{
-    int data;
-    struct Node* next;
+struct Node {
+  int data;
+  struct Node *next;
 };
 
-// Defining Head
-struct Node* head;
+// temporary vector
+vector<int> v;
 
+// Head here globally defined
+struct Node *head;
 
-// Inserting First into the Linked List
-void insertFirst(int num){
-    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-    temp->data = num;
-    temp->next = head;
-    head = temp;
+// insertt first function
+void insert_first(int num) {
+  struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+  temp->data = num;
+  temp->next = head;
+  head = temp;
 }
 
-// Traverse The Linked List
-void traverseLL(Node* head){
-    struct Node* temp = head;
+
+// print
+void display(Node* head){
+    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+    temp = head;
 
     while(temp != nullptr){
-        cout << temp->data << " ";
+        cout << temp->data << endl;
         temp = temp->next;
     }
-    cout << endl;
 }
 
-// Reverse Linked List
-Node* reverseLL(Node* head){
-    struct Node* previous = nullptr;
-    struct Node* current = head;
-    struct Node* following = head;
+// length 
+void lengthLL(Node* head){
+    struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
+    temp = head;
+    
+    int count = 0;
 
-    while(current != nullptr){
-        following = following->next;
-        current->next = previous;
-        previous = current;
-        current = following;
+    while(temp != nullptr){
+        count++;
+        temp = temp -> next;
     }
 
-    return previous;
+    cout << "There are only " << count << " elements in the linked list."<< endl;
 }
 
-
-
-int main(){
-    string s;
-    int num;
-
+void convertArrToLL(vector<int>&v){
+    
+   if(v.empty()){
     head = nullptr;
+    return;
+   }
 
-    while(1){
-        cin >> s;
+   head->data = v[0];
+   head->next = nullptr;
 
-        if(s == "insert"){
-            cout << "Enter the number: ";
-            cin >> num;
-            insertFirst(num);
+   struct Node* mover = (struct Node*)malloc(sizeof(struct Node));
+   mover = head;
 
+   for(int i = 1; i < v.size(); i++){
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = v[i];
+    temp->next = nullptr;
+    mover->next = temp;
+    mover = temp;
+   }
+
+   display(head);
+}
+
+
+// sorting a linked list
+
+void sort_LL(Node *head){
+    struct Node* temp = (struct Node *) malloc(sizeof(struct Node));
+    temp = head;
+
+    while(temp != nullptr){
+        v.push_back(temp->data);
+        temp = temp->next;
+    }
+
+    // printing the size of the vector
+    // cout << v.size() << endl;
+
+    // Sorting algorithm
+    for(int i = 0; i < v.size() - 1; i++){
+        int min = i;
+        for(int j = i + 1; j < v.size(); j++){
+            if(v[j] < v[min]){
+                min = j;
+            }
         }
-        else if(s == "print"){
-            traverseLL(head);
-        }
 
-        else if(s == "reverse"){
-            head = reverseLL(head);
-        }
-        else if(s == "exit"){
-            exit(0);
+        if(min != i){
+            swap(v[i], v[min]);
         }
     }
+    // end of sorting algorithm
+
+    // converting the array into linked list again
+    //TODO: write a function that converts the array into linked list
+    convertArrToLL(v);
+}
+
+
+int main() {
+  head = nullptr;
+
+  string s;
+  int num;
+
+  while (1) {
+    cin >> s;
+
+    if (s == "i") {
+      cout << "Enter a number: ";
+      cin >> num;
+      insert_first(num);
+    }
+    else if(s == "d"){
+        display(head);
+    }
+    else if(s == "l"){
+        lengthLL(head);
+    }
+    else if(s == "s"){
+        sort_LL(head);
+    }
+    else if (s == "e") {
+      exit(0);
+    }
+  }
 }
