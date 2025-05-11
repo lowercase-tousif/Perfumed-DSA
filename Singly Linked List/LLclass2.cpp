@@ -71,6 +71,20 @@ void convertArrToLL(vector<int>&v){
    display(head);
 }
 
+// Reversing a Linked List
+Node* reverseLL(Node* head){
+  Node* previous = nullptr;
+  Node* current = head;
+  Node* following = head;
+
+  while(current != nullptr){
+    following = following->next;
+    current->next = previous;
+    previous = current;
+    current = following;
+  }
+  return previous;
+}
 
 // sorting a linked list made by own
 Node* sort_LL(Node *head){
@@ -201,6 +215,9 @@ int main() {
     }
     else if(s == "l"){
         lengthLL(head);
+    }
+    else if(s == "reverse"){
+        head = reverseLL(head);
     }
     else if(s == "s"){
         head = sort_LL(head);
