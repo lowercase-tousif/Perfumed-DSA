@@ -16,20 +16,20 @@ void insert_first(int num) {
   head = temp;
 }
 
-void insert_last(Node **head, int value) {
+void insert_last(int num) {
   struct Node *newnode = (struct Node *)malloc(sizeof(struct Node));
-  newnode->data = value;
+  newnode->data = num;
   newnode->next = nullptr;
 
-  if (*head == nullptr) {
-    *head = newnode;
+  if (head == nullptr) {
+    head = newnode;
   } else {
-    struct Node *last_node = *head;
-    while (last_node->next != nullptr) {
-      last_node = last_node->next;
+    struct Node *temp = head;
+    while (temp->next != nullptr) {
+      temp = temp->next;
     }
 
-    last_node->next = newnode;
+    temp->next = newnode;
   }
 }
 
@@ -108,6 +108,44 @@ Node *reverse(Node *head) {
   return previous;
 }
 
+Node *getMid(Node *head) {
+  Node *slow = head;
+  Node *fast = head;
+
+  while (fast != NULL && fast->next != NULL) {
+    fast = fast->next->next;
+    slow = slow->next;
+  }
+  return slow;
+}
+
+bool isPalindrome(Node *head) {
+  if (head->next == NULL) {
+    return true;
+  }
+
+  //  Find the middle element
+  Node *middle = getMid(head);
+
+  // reverse list after the middle element
+  Node *temp = middle->next;
+  middle->next = reverse(temp);
+
+  // compare both halfs
+  Node *head1 = head;
+  Node *head2 = middle->next;
+
+  while (head2 != NULL) {
+    if (head1->data != head2->data) {
+      return false;
+    }
+    head1 = head1->next;
+    head2 = head2->next;
+  }
+
+  return true;
+}
+
 void sortLL(Node *head) {
   struct Node *i, *j;
   int temp;
@@ -160,12 +198,28 @@ int main() {
       updateLL(head, value, index);
     }
 
+    else if (s == "mid") {
+      Node *mid = getMid(head);
+      if (mid != nullptr) {
+        cout << "Middle element is: " << mid->data << endl;
+      } else {
+        cout << "List is empty!" << endl;
+      }
+    }
+
     else if (s == "insert_last") {
       int value;
       cout << "Enter value: ";
       cin >> value;
 
-      insert_last(&head, value);
+      insert_last(value);
+    } else if (s == "p") {
+      bool v = isPalindrome(head);
+      if (v) {
+        cout << "Linked list is palindrome" << endl;
+      } else {
+        cout << "Linked list is not palindrome" << endl;
+      }
     }
 
     else if (s == "length") {
